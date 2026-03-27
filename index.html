@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SR FF TOURNAMENT - Download Official App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Default Theme Variables (Red) */
+        :root {
+            --bg-dark: #0f0f13;
+            --surface-card: #1c1c24;
+            --text-main: #ffffff;
+            --text-sub: #a0a0b0;
+            --primary: #ff3333;
+            --gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; text-align: center; }
+
+        .container { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; }
+        
+        /* --- LOGO SECTION --- */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px var(--primary); }
+            50% { box-shadow: 0 0 40px var(--primary); }
+            100% { box-shadow: 0 0 15px var(--primary); }
+        }
+        .logo-box { 
+            width: 120px; height: 120px; 
+            background: var(--surface-card); 
+            border-radius: 30px; 
+            display: flex; justify-content: center; align-items: center; 
+            margin-bottom: 25px; 
+            border: 2px solid var(--primary); 
+            transition: all 0.3s ease;
+            animation: pulseGlow 2.5s infinite;
+            overflow: hidden; /* Ensure logo image fits within borders */
+            font-size: 50px; color: var(--primary);
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Hidden by default until fetched */
+        }
+        .app-title { font-size: 34px; font-weight: 800; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .app-desc { font-size: 14px; color: var(--text-sub); max-width: 450px; margin-bottom: 30px; line-height: 1.6; }
+
+        /* --- STATS SECTION --- */
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        .stat-number { font-size: 26px; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
+        .stat-label { font-size: 11px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* Download Button */
+        .download-btn {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+        .download-btn:active { transform: translateY(1px); }
+        
+        .version-info { font-size: 11px; color: var(--text-sub); margin-bottom: 50px; }
+
+        /* --- FEATURES SECTION --- */
+        .features-section { width: 100%; max-width: 800px; }
+        .section-title { font-size: 20px; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; text-align: left; }
+        
+        .feature-card { background: var(--surface-card); padding: 25px 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s, box-shadow 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: var(--primary); }
+        .feature-icon { font-size: 32px; color: var(--primary); margin-bottom: 15px; }
+        .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: white; }
+        .feature-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+
+        /* Social Media Section */
+        .social-section { margin-top: 60px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 400px; }
+        .social-title { font-size: 14px; font-weight: 600; color: var(--text-sub); margin-bottom: 20px; }
+        .social-links { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        
+        .social-icon {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: none; /* Hidden by default, shown if URL exists */
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            background: var(--surface-card);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-icon:hover { transform: translateY(-3px); background: var(--primary); border-color: var(--primary); }
+
+        /* Loading Overlay */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; color: var(--primary); font-size: 30px; transition: opacity 0.5s; }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+
+    <div class="container">
+        <div class="logo-box" id="logoBox">
+            <i class="fa-solid fa-gamepad" id="fallbackLogoIcon"></i>
+            <img id="dynamicLogo" src="" alt="App Logo" class="logo-img">
+        </div>
+
+        <div class="app-title" id="dynamicAppName">SR FF TOURNAMENT</div>
+        <div class="app-desc">Play Free Fire tournaments daily, get kills, and win real cash! Download the official app now and start your Esports journey.</div>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Daily Matches</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Instant deposits&withdrawal </div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">₹1L+</div>
+                <div class="stat-label">Prizes Distributed</div>
+            </div>
+        </div>
+
+        <a href="https://www.mediafire.com/file/79fdezhapv7f1tw/SR+FF+TOURNAMENT+.apk/file" target="_blank" class="download-btn" id="downloadBtn">
+            <i class="fa-brands fa-android" style="font-size: 24px;"></i>
+            Download APK
+        </a>
+        <div class="version-info">Requires Android 6.0 and up | Secure & Verified</div>
+
+        <div class="features-section">
+            <div class="section-title">Why Join Us?</div>
+            <div class="features-grid">
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="feature-title">Daily Tournaments</div>
+                    <div class="feature-desc">Compete in Solo, Duo, and Squad Free Fire matches every day with huge prize pools.</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <div class="feature-title">Per Kill Rewards</div>
+                    <div class="feature-desc">Don't just win, dominate! Get paid real cash for every single kill you secure in the match.</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="feature-title">Instant Withdrawals</div>
+                    <div class="feature-desc">Withdraw your winnings instantly. Fast and secure payments directly to your UPI ID.</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                    <div class="feature-title">Refer & Earn</div>
+                    <div class="feature-desc">Invite your gaming squad using your referral code and earn unlimited bonus cash!</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="social-section">
+            <div class="social-title">Connect With Us / Support</div>
+            <div class="social-links">
+                <a href="#" target="_blank" class="social-icon" id="soc-wa"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" target="_blank" class="social-icon" id="soc-ig"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" target="_blank" class="social-icon" id="soc-dc"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" target="_blank" class="social-icon" id="soc-tg"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" target="_blank" class="social-icon" id="soc-yt"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div id="no-socials" style="font-size: 12px; color: var(--text-sub); display: none;">No support channels linked yet.</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyCMXqGLdgfRkh74iPdY9fDOt-rzLnhDgxs",
+  authDomain: "srff-587a9.firebaseapp.com",
+  databaseURL: "https://srff-587a9-default-rtdb.firebaseio.com",
+  projectId: "srff-587a9",
+  storageBucket: "srff-587a9.firebasestorage.app",
+  messagingSenderId: "119418616951",
+  appId: "1:119418616951:web:f85faa29921f95ba831a72"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 1. Fetch and Apply Theme
+        async function fetchTheme() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "theme"));
+                if(docSnap.exists()) {
+                    const theme = docSnap.data().activeTheme;
+                    const root = document.documentElement;
+                    if(theme === 'blue') {
+                        root.style.setProperty('--primary', '#00c6ff');
+                        root.style.setProperty('--gradient', 'linear-gradient(135deg, #00c6ff, #0072ff)');
+                    } else if(theme === 'green') {
+                        root.style.setProperty('--primary', '#00e676');
+                        root.style.setProperty('--gradient', 'linear-gradient(135deg, #11998e, #38ef7d)');
+                    } else {
+                        // Default Red
+                        root.style.setProperty('--primary', '#ff3333');
+                        root.style.setProperty('--gradient', 'linear-gradient(135deg, #ff416c, #ff4b2b)');
+                    }
+                }
+            } catch(e) { console.error("Error loading theme:", e); }
+        }
+
+        // 2. Fetch General Settings (Logo & App Name)
+        async function fetchGeneralSettings() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "general"));
+                if(docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    // Update App Name
+                    if(data.appName) {
+                        document.getElementById('dynamicAppName').innerText = data.appName;
+                        document.title = data.appName + " - Download Official App";
+                    }
+
+                    // Update Logo
+                    if(data.logoUrl) {
+                        const imgEl = document.getElementById('dynamicLogo');
+                        const iconEl = document.getElementById('fallbackLogoIcon');
+                        
+                        imgEl.src = data.logoUrl;
+                        imgEl.style.display = 'block'; // Show image
+                        iconEl.style.display = 'none'; // Hide icon
+                    }
+                }
+            } catch(e) { console.error("Error loading general settings:", e); }
+        }
+
+        // 3. Fetch Social Links
+        async function fetchSocials() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "socials"));
+                let hasLinks = false;
+                if(docSnap.exists()) {
+                    const s = docSnap.data();
+                    if(s.whatsapp) { document.getElementById('soc-wa').href = s.whatsapp; document.getElementById('soc-wa').style.display = 'flex'; hasLinks = true; }
+                    if(s.instagram) { document.getElementById('soc-ig').href = s.instagram; document.getElementById('soc-ig').style.display = 'flex'; hasLinks = true; }
+                    if(s.discord) { document.getElementById('soc-dc').href = s.discord; document.getElementById('soc-dc').style.display = 'flex'; hasLinks = true; }
+                    if(s.telegram) { document.getElementById('soc-tg').href = s.telegram; document.getElementById('soc-tg').style.display = 'flex'; hasLinks = true; }
+                    if(s.youtube) { document.getElementById('soc-yt').href = s.youtube; document.getElementById('soc-yt').style.display = 'flex'; hasLinks = true; }
+                }
+                
+                if(!hasLinks) {
+                    document.getElementById('no-socials').style.display = 'block';
+                }
+            } catch(e) { console.error("Error loading socials:", e); }
+        }
+
+        // Initialize Page
+        async function initPage() {
+            await Promise.all([
+                fetchTheme(),
+                fetchGeneralSettings(),
+                fetchSocials()
+            ]);
+            
+            // Hide Loader once everything is fetched
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500);
+        }
+
+        initPage();
+    </script>
+</body>
+</html>
